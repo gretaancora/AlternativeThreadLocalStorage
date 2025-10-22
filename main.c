@@ -52,10 +52,14 @@ void* the_thread(void* dummy) {
 
     if (me==0) {
         WRITE_THREAD_VARIABLE(i, 3);
+        WRITE_THREAD_VARIABLE(j, 33);
         printf("thread %lu variable i: %d \n", me, READ_THREAD_VARIABLE(i));
+        printf("thread %lu variable j: %d \n", me, READ_THREAD_VARIABLE(j));
     }else {
-        WRITE_THREAD_VARIABLE(i, 11);
+        WRITE_THREAD_VARIABLE(i, 1);
+        WRITE_THREAD_VARIABLE(j, 11);
         printf("thread %lu variable i: %d \n", me, READ_THREAD_VARIABLE(i));
+        printf("thread %lu variable j: %d \n", me, READ_THREAD_VARIABLE(j));
     }
 
     return NULL;
