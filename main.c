@@ -3,10 +3,13 @@
 #include <sys/mman.h>
 #include <pthread.h>
 #include <asm/prctl.h>
-#include <sys/syscall.h>
+#include <sys/prctl.h>
 #include <unistd.h>
 #include <stddef.h>
 #include <stdint.h>
+
+
+extern int arch_prctl(int code, unsigned long addr);
 
 
 #define READ_THREAD_VARIABLE(name) \
@@ -48,7 +51,7 @@ void* the_thread(void* dummy) {
     }
 
     //faccio puntare GS a tale area riservata
-    syscall(SYS_arch_prctl, ARCH_SET_GS, (unsigned long)thread_area);
+    arch_prctl(ARCH_SET_GS, (unsigned long)thread_area);
 
     if (me==0) {
         WRITE_THREAD_VARIABLE(i, 3);
